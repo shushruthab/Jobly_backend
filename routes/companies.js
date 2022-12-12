@@ -48,13 +48,11 @@ router.post("/", ensureAdmin, async function (req, res, next) {
  * - maxEmployees
  * - nameLike (will find case-insensitive, partial matches)
  *
- * Authorization required: none
  */
 
 router.get("/", async function (req, res, next) {
   
   const userparams = req.query;
-  console.log(userparams);
   if (userparams.minEmployees !== undefined) userparams.minEmployees = +userparams.minEmployees;
   if (userparams.maxEmployees !== undefined) userparams.maxEmployees = +userparams.maxEmployees;
   try {
@@ -98,7 +96,7 @@ router.get("/:handle", async function (req, res, next) {
  * Authorization required: admin
  */
 
-router.patch("/:handle", async function (req, res, next) {
+router.patch("/:handle", ensureAdmin, async function (req, res, next) {
   try {
     const validator = jsonschema.validate(req.body, companyUpdateSchema);
     if (!validator.valid) {

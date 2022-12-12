@@ -39,7 +39,7 @@ class Jobs {
      *  title
      */
 
-    static async findAll ({ minSalary, hasequity, title }) {
+    static async findAll ({ minSalary, hasequity, title } = {}) {
         let query = `SELECT j.id,
                             j.title,
                             j.salary,
